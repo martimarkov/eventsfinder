@@ -3,12 +3,9 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'eventsfinder.settings'
 
 # Google App Engine imports.
 from google.appengine.ext.webapp import util
-from google.appengine.dist import use_library
 
 #os.environ["DJANGO_SETTINGS_MODULE"] = "mysite.settings"
 #sys.path.append("/home/brox/tmp/mysite")
-
-use_library('django', '1.5')
 
 # Force Django to reload its settings.
 from django.conf import settings
