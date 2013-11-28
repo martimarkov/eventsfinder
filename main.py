@@ -1,11 +1,5 @@
-import os,sys
-os.environ['DJANGO_SETTINGS_MODULE'] = 'eventsfinder.settings'
-
 # Google App Engine imports.
 from google.appengine.ext.webapp import util
-
-#os.environ["DJANGO_SETTINGS_MODULE"] = "mysite.settings"
-#sys.path.append("/home/brox/tmp/mysite")
 
 # Force Django to reload its settings.
 from django.conf import settings
@@ -25,16 +19,22 @@ import django.dispatch.dispatcher
 #   log_exception, django.core.signals.got_request_exception)
 
 # Unregister the rollback event handler.
-django.dispatch.dispatcher.disconnect(
+#django.dispatch.dispatcher.disconnect(
+#    django.db._rollback_on_exception,
+#    django.core.signals.got_request_exception)
+django.dispatch.dispatcher.Signal().disconnect(
     django.db._rollback_on_exception,
     django.core.signals.got_request_exception)
 
-def main():
-  # Create a Django application for WSGI.
-  application = django.core.handlers.wsgi.WSGIHandler()
+# Create a Django application for WSGI.
+app = django.core.handlers.wsgi.WSGIHandler()
 
-  # Run the WSGI CGI handler with that application.
-  util.run_wsgi_app(application)
+def main():
+    # Run the WSGI CGI handler with that application.
+    util.run_wsgi_app(application=app)
 
 if __name__ == '__main__':
-  main()
+    main()
+
+
+
