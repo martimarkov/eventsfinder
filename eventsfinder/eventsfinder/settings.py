@@ -11,9 +11,9 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'INSTANCE': 'events-finder:00c61b117c06978d6b27002cad85502e243675ca',
-        'NAME': 'efdb',
+            'ENGINE': 'django.db.backends.mysql',
+            'INSTANCE': 'events-finder:00c61b117c06978d6b27002cad85502e243675ca',
+            'NAME': 'efdb',
         }
 }
 # Hosts/domain names that are valid for this site; required if DEBUG is False
