@@ -8,15 +8,42 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
+ # Set the following to 'prod' to have access to the database
+SETTINGS_MODE = ''
 
-DATABASES = {
-    'default': {
+import os
+if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
+    # Running on production App Engine, so use a Google Cloud SQL database.
+    DATABASES = {
+        'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'INSTANCE': '/cloudsql/events-finder:instance1',
+            'HOST': '/cloudsql/events-finder:instance1',
             'NAME': 'efdb',
-            'USER': 'root'
-        }
-}
+            'USER': 'root',
+            }
+    }
+elif os.getenv('SETTINGS_MODE') == 'prod':
+    # Running in development, but want to access the Google Cloud SQL instance
+    # in production.
+    DATABASES = {
+        'default': {
+            'ENGINE': 'google.appengine.ext.django.backends.rdbms',
+            'INSTANCE': 'events-finder:instance1',
+            'NAME': 'efdb',
+            'USER': 'root',
+            }
+    }
+else:
+    # Running in development, so use a local MySQL database.
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'efdb',
+            'USER': 'efroot',
+            'PASSWORD': 'efpass',
+            }
+    }
+
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
@@ -57,7 +84,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'static'))
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
