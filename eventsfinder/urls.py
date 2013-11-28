@@ -5,8 +5,5 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-
     url(r'^$', 'eventsfinder.views.homeRequest', name='home'),
-
-    url(r'^admin/', include(admin.site.urls)),
 )
