@@ -24,3 +24,10 @@ body {
 .page-header {
     font-size: 5em;
 }
+
+#home-tabbed-content button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 100px;
+}

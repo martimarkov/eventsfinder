@@ -6,6 +6,8 @@ from django.contrib.sessions.backends.db import SessionStore as DBStore
 from django.core.cache import cache
 from django.core.exceptions import SuspiciousOperation
 from django.utils import timezone
+from django.utils.timezone import utc
+import datetime
 
 KEY_PREFIX = "django.contrib.sessions.cached_db"
 
@@ -36,7 +38,7 @@ class SessionStore(DBStore):
             try:
                 s = Session.objects.get(
                     session_key=self.session_key,
-                    expire_date__gt=timezone.now()
+                    expire_date__gt=datetime.datetime.today()
                 )
                 data = self.decode(s.session_data)
                 cache.set(self.cache_key, data,
