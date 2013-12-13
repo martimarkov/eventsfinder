@@ -12,8 +12,8 @@
     </facet>
     <facet type="django" name="Django">
       <configuration>
-        <option name="rootFolder" value="$MODULE_DIR$/" />
-        <option name="settingsModule" value="settings.py" />
+        <option name="rootFolder" value="$MODULE_DIR$" />
+        <option name="settingsModule" value="" />
         <option name="manageScript" value="manage.py" />
       </configuration>
     </facet>

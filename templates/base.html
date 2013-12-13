@@ -1,14 +1,76 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Events Finder</title>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/base.css">
+    <script type="text/javascript" src="/static/js/base.js"></script>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootswatch/3.0.0/amelia/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
+    <script src="http://www.bootstrapcdn.com/twitter-bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+    {% block head-includes %}{% endblock %}
 </head>
 <body>
 
-<h1>Welcome to Events Finder</h1>
+<div id="wrap">
+    <nav id='events-finder-nav-bar' class="navbar navbar-default navbar-fixed-top" role="navigation">
 
-{% block content %}
-{% endblock %}
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Events Finder</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="#"><span class="glyphicon glyphicon-text-width"></span></a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-thumbs-up"></span></a></li>
+            </ul>
+            <form id="nav-bar-search-form" class="navbar-form navbar-right" role="search">
+                <div class="form-group">
+                    <input id="nav-bar-search" type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dashboard<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Create Event</a></li>
+                        <li><a href="#">Manage Events</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Sign Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div id="push"></div>
+</div>
+
+<div id="footer">
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="navbar-inner navbar-content-center">
+            <p style="float:right" class="text-muted credit">Feel free to contact the team at <a href="mailito:iasm1g11@soton.ac.uk">iasm1g11@soton.ac.uk</a></p>
+        </div>
+    </nav>
+</div>
 
 </body>
 </html>

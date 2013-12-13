@@ -1,5 +1,39 @@
 {% extends "base.html" %}
 
+{% block head-includes %} <link rel="stylesheet" src="/static/css/home.css"><script type="text/javascript" src="/static/js/home.js"></script>{% endblock %}
+
 {% block content %}
-<h2>This is the content</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div>
+                <h1 style="font-size: 7em;">Events Finder</h1>
+                <h3>Find all the nearest events around you!</h3>
+            </div>
+        </div>
+        <div class="col-md-6 container" style="padding-top: 60px;">
+            <h2 id="nav-tabs">
+                What is Events Finder?
+            </h2>
+            <div class="bs-example">
+                <ul id="home-tabs" class="nav nav-tabs" style="margin-bottom: 15px;">
+                    <li class="active"><a href="#home-tab-1" data-toggle="tab" style="color:white">Create</a></li>
+                    <li class=""><a href="#home-tab-2" data-toggle="tab" style="color:white">Explore</a></li>
+                    <li class=""><a href="#home-tab-3" data-toggle="tab" style="color:white">Join</a></li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active in" id="home-tab-1">
+                        <p>Are you planning to throw a party? A networking event? A hackathon? Adding your event to Events Finder is extremely simple!</p>
+                    </div>
+                    <div class="tab-pane fade" id="home-tab-2">
+                        <p>You can find the best events in your area, sort them by popularity, see who is already attending, and even contact the organizers to get more information about the event!</p>
+                    </div>
+                    <div class="tab-pane fade" id="home-tab-3">
+                        <p>Once you have found your favourite events your can join as many events as you want - you will be able to keep track of all you paste events as well as your upcoming events!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

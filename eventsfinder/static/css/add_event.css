@@ -1,0 +1,11 @@
+
+#datetimepicker {
+    position: relative;
+}
+.bootstrap-datetimepicker-widget {
+    color: black !important;
+    border-bottom: 0px solid transparent !important;
+    border-top: 6px solid white;
+    top: auto !important;
+    bottom: -100px;
+}
