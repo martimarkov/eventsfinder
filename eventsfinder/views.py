@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render_to_response
-from django.contrib.auth.views import login
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.template.context import RequestContext
 
@@ -28,10 +28,13 @@ def signup(request):
     if request.method =='POST':
         form = UserCreationForm(request.POST)
 
-    if form and form.is_valid():
-        user = user = form.save()
-        login(request, user)
-        return render_to_response(reverse('home')) # Redirect after POST
+    if form:
+        if form.is_valid():
+            user = form.save()
+            user = authenticate(username=request.POST['username'],
+                                password=request.POST['password1'])
+            login(request, user)
+            return redirect('home') # Redirect after POST
     else:
         form = UserCreationForm() # An unbound form
 
