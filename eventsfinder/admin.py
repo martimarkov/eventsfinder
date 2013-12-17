@@ -1,0 +1,12 @@
+from django.contrib.admin import site, ModelAdmin
+from eventsfinder.models import Event, Attendee, Tag
+
+def tags(instance):
+    return ', '.join(instance.tags)
+
+class EventAdmin(ModelAdmin):
+    list_display = ['name', 'description', 'creator', 'latitude', 'longitude', 'start', 'end', 'get_short_address', tags]
+
+
+site.register(Event, EventAdmin)
+site.register(Attendee)

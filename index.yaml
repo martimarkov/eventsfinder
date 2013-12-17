@@ -32,3 +32,13 @@ indexes:
   - name: domain
   - name: __key__
     direction: desc
+
+- kind: eventsfinder_attendee
+  properties:
+  - name: __key__
+    direction: desc
+
+- kind: eventsfinder_event
+  properties:
+  - name: __key__
+    direction: desc

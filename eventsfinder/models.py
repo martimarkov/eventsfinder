@@ -2,30 +2,57 @@ from django.db import models
 
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
+from django import forms
+
+from djangotoolbox.fields import ListField
+
 
 ATTENDEE_TYPE_CHOICES = (
-        ('O', 'Organizer')
+        ('O', 'Organizer'),
         ('A', 'Attendee'),
         ('S', 'Speaker'),
         ('M', 'Mentor'),
+        ('T', 'Tracker'),
     )
 
+class StringListField(forms.CharField):
+
+    def prepare_value(self, value):
+        return ', '.join(value)
+
+    def to_python(self, value):
+        if not value:
+            return []
+        return [item.strip() for item in value.split(',')]
+
+class Tag(ListField):
+    def formfield(self, **kwargs):
+        return models.Field.formfield(self, StringListField, **kwargs)
+
+
+# TODO add sponsors!!
 class Event(models.Model):
-    creators = models.ManyToManyField(User)
+    creator = models.OneToOneField(User)
     name = models.CharField(_("Event Name"), max_length=50)
     description = models.TextField(_("Event Description"), null=True, blank=True)
     address = models.CharField(max_length=100)
     country = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     zip = models.CharField(max_length=10)
-    latitude = models.IntegerField()
-    longitude = models.IntegerField()
-    webste = models.CharField(max_length=100)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    website = models.CharField(max_length=100, null=True, blank=True)
     start = models.DateTimeField()
     end = models.DateTimeField(null=True, blank=True)
+    tags = Tag()
+
+    def get_address_array(self):
+        return [ self.address, self.country, self.city, self.zip ]
+
+    def get_short_address(self):
+        return self.zip + " " + self.city + ", " + self.country
 
 class Attendee(models.Model):
     attendee = models.ForeignKey(User)
-    type = models.CharField(max_length=1, choice=ATTENDEE_TYPE_CHOICES, default='A')
+    type = models.CharField(max_length=1, choices=ATTENDEE_TYPE_CHOICES, default='A')
     event = models.ForeignKey(Event)
-

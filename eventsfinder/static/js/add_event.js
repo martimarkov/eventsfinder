@@ -19,9 +19,25 @@ var add_event = {
             format: 'dd/MM/yyyy hh:mm:ss',
             language: 'en-GB'
         });
+
+        $('#add-event-tag-bar').tagit({ select:true, sortable: true });
+
+        $('#add-event-form').submit(function(event) {
+            var tags = getTags($('#add-event-tag-bar').tagit('tags'));
+            $("#add-event-tags").attr("value", tags);
+        });
+
+        function getTags(tags) {
+            var string = tags[0].value;
+            for (var i in tags) {
+                if (i == 0) continue;
+                string += "," + tags[i].value;
+            }
+            return string.toLowerCase()
+        }
     }
 }
 
 $(function() {
     add_event.init();
-})();
+});

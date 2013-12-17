@@ -1,0 +1,11 @@
+.panel-body {
+    padding: 0px 0px 0px 0px;
+    height: 360px;
+    overflow-y: scroll;
+}
+#manage-events a {
+    color: orange !important;
+}
+#manage-events a:hover {
+    color: #ff8c00 !important;
+}

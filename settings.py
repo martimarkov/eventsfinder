@@ -14,9 +14,20 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+#Use email
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'wakeuproulette@gmail.com'
+EMAIL_HOST_PASSWORD = 'wakeup!!'
+
+#EMAIL_HOST = 'localhost'
+#EMAIL_PORT = 25
+
+
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ 'http://events-finder.appspot.com/']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -120,6 +131,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.request',
     'django.core.context_processors.media',
+    "eventsfinder.ef_context.in_prod",
 )
 
 MIDDLEWARE_CLASSES = (
@@ -137,5 +149,3 @@ TEST_RUNNER = 'djangotoolbox.test.CapturingTestSuiteRunner'
 TEMPLATE_DIRS = (
     os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'templates'))
 )
-
-
