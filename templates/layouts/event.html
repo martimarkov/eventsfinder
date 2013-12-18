@@ -1,4 +1,4 @@
-<a href="/manage/{{ event.id }}">
+<a href="/{% if created %}manage{% else %}event{% endif %}/{{ event.id }}">
 <div style="color: white" class="event-container">
     <div class="row">
         <div style="color: #d3d3d3" class="col-md-5">

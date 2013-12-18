@@ -42,3 +42,8 @@ indexes:
   properties:
   - name: __key__
     direction: desc
+
+- kind: eventsfinder_staff
+  properties:
+  - name: __key__
+    direction: desc

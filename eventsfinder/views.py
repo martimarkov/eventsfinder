@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.template.context import RequestContext
 from django.contrib.auth.decorators import login_required
-from eventsfinder.models import Event, Attendee
+from eventsfinder.models import Event, Attendee, Staff
 import settings
 
 from eventsfinder.tools.forms import EventCreationForm
@@ -64,19 +64,61 @@ def manage_events(request):
 
     return render(request, 'manage_events.html', { 'created': created, 'attending': attending })
 
+def edit_event(request, event_id):
 
+    data = {}
+    data['form'] = request.POST.get("form", "")
+
+    try:
+        data['event'] = Event.objects.get(id=event_id)
+
+        if data['event'].creator != request.user:
+            return render(request, 'generic_message.html', { 'header' : 'Event not found...', 'message': "Oops, we couldn't find the event you were looking for..." })
+
+        all_attendees = Attendee.objects.filter(event=event_id)
+        all_staff = Staff.objects.filter(event=event_id)
+
+        data['attendees'] = all_attendees.filter(type='A')
+        data['trackers'] = all_attendees.filter(type='T')
+
+        data['organizers'] = all_staff.filter(type='O')
+        data['mentors'] = all_staff.filter(type='M')
+        data['speakers'] = all_staff.filter(type='S')
+
+        if request.method =='POST':
+            data['form'] = EventCreationForm(request.POST)
+
+            if data['form'].is_valid():
+                event = data['form'].save(commit=False)
+                event.creator = request.user
+                event_id = data['event'].id
+                data['event'] = event
+                data['event'].id = event_id
+                data['event'].save()
+        else:
+            data['form'] = EventCreationForm()
+
+    except Exception, err:
+        # Event not found so raise an event not found
+        return render(request, 'generic_message.html', { 'header' : 'Event not found...', 'message': err if settings.DEBUG else "Oops, we couldn't find the event you were looking for..." })
+
+    return render(request, 'edit_event.html', data)
 
 def view_event(request, event_id):
     data = {}
 
     try:
         data['event'] = Event.objects.get(id=event_id)
+
         all_attendees = Attendee.objects.filter(event=event_id)
+        all_staff = Staff.objects.filter(event=event_id)
+
         data['attendees'] = all_attendees.filter(type='A')
-        data['organizers'] = all_attendees.filter(type='O')
-        data['mentors'] = all_attendees.filter(type='M')
-        data['speakers'] = all_attendees.filter(type='S')
         data['trackers'] = all_attendees.filter(type='T')
+
+        data['organizers'] = all_staff.filter(type='O')
+        data['mentors'] = all_staff.filter(type='M')
+        data['speakers'] = all_staff.filter(type='S')
 
     except Exception, err:
         # Event not found so raise an event not found

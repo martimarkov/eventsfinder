@@ -8,11 +8,14 @@ from djangotoolbox.fields import ListField
 
 
 ATTENDEE_TYPE_CHOICES = (
-        ('O', 'Organizer'),
         ('A', 'Attendee'),
+        ('T', 'Tracker'),
+    )
+
+STAFF_TYPE_CHOICES = (
+        ('O', 'Organizer'),
         ('S', 'Speaker'),
         ('M', 'Mentor'),
-        ('T', 'Tracker'),
     )
 
 class StringListField(forms.CharField):
@@ -55,4 +58,14 @@ class Event(models.Model):
 class Attendee(models.Model):
     attendee = models.ForeignKey(User)
     type = models.CharField(max_length=1, choices=ATTENDEE_TYPE_CHOICES, default='A')
+    event = models.ForeignKey(Event)
+
+class Staff(models.Model):
+    staff = models.ForeignKey(User, null=True, blank=True)
+
+    name = models.CharField(max_length=50)
+    description = models.TextField()
+    url = models.CharField(max_length=120)
+
+    type = models.CharField(max_length=1, choices=STAFF_TYPE_CHOICES, default='M')
     event = models.ForeignKey(Event)

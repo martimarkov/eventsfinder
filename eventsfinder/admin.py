@@ -1,5 +1,5 @@
 from django.contrib.admin import site, ModelAdmin
-from eventsfinder.models import Event, Attendee, Tag
+from eventsfinder.models import Event, Attendee, Staff
 
 def tags(instance):
     return ', '.join(instance.tags)
@@ -10,3 +10,4 @@ class EventAdmin(ModelAdmin):
 
 site.register(Event, EventAdmin)
 site.register(Attendee)
+site.register(Staff)

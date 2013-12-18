@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block head-includes %}
-    {#    <link rel="stylesheet" type="text/css" href="/static/css/view.css">#}
     <script type="text/javascript" src="/static/js/view.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/edit_event.css">
 {% endblock %}
 
 {% block content %}
@@ -51,24 +51,24 @@
                     {% if speakers %}
                         <div class="row">
                             <h4>Speakers</h4>
-                            {% for attendee in speakers %}
-                                {% include 'layouts/generic_attendee.html' with attendee=attendee.attendee %}
+                            {% for staff in speakers %}
+                                {% include 'layouts/generic_staff.html' with staff=staff %}
                             {% endfor %}
                         </div>
                     {% endif %}
                     {% if mentors %}
                         <div class="row">
                             <h4>Mentors</h4>
-                            {% for attendee in mentors %}
-                                {% include 'layouts/generic_attendee.html' with attendee=attendee.attendee %}
+                            {% for staff in mentors %}
+                                {% include 'layouts/generic_staff.html' with staff=staff %}
                             {% endfor %}
                         </div>
                     {% endif %}
                     {% if organizers %}
                         <div class="row">
                             <h4>Organizers</h4>
-                            {% for attendee in organizers %}
-                                {% include 'layouts/generic_attendee.html' with attendee=attendee.attendee %}
+                            {% for staff in organizers %}
+                                {% include 'layouts/generic_staff.html' with staff=staff %}
                             {% endfor %}
                         </div>
                     {% endif %}

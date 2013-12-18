@@ -1,0 +1,15 @@
+<div data-staff_id="{{ staff.id }}" class="col-md-3 well staff-container">
+    <h4>{{ staff.name }}</h4>
+    {% if staff.url %}
+        <a href="{{ staff.url }}">
+            url
+        </a>
+    {% endif %}
+    {% if staff.staff %}
+        <br>
+        <a href="/accounts/{{ staff.staff.username }}/">
+            Profile
+        </a>
+    {% endif %}
+    <a class="remove-staff-btn" href="#">x</a>
+</div>
