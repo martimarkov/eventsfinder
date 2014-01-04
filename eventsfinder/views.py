@@ -137,9 +137,11 @@ def signup(request):
 
     if form:
         if form.is_valid():
-            form.save()
-            user = authenticate(username=request.POST['username'],
-                                password=request.POST['password1'])
+            user = form.save()
+
+            # We use this to set the user as authenticated, as we have just created the user
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
+
             login(request, user)
             return redirect('home') # Redirect after POST
     else:

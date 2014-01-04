@@ -1,4 +1,5 @@
 <div data-staff_id="{{ staff.id }}" class="col-md-3 well staff-container">
+    <div style="margin: auto auto; margin-top: 10px; width:50px; height: 50px; overflow: hidden; border-radius: 10px; background-size: cover; background-image: url('{% if staff.imgurl %}{{ staff.imgurl }}{% else %}/static/images/man-placeholder.jpg{% endif %}')"/></div>
     <h4>{{ staff.name }}</h4>
     {% if staff.url %}
         <a href="{{ staff.url }}">
@@ -11,5 +12,7 @@
             Profile
         </a>
     {% endif %}
-    <a class="remove-staff-btn" href="#">x</a>
+    {% if edit %}
+        <a class="remove-staff-btn" href="#">x</a>
+    {% endif %}
 </div>

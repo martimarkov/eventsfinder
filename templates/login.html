@@ -14,7 +14,7 @@
                     <form id="add-event-form" class="form-horizontal" method="POST">
                         {% csrf_token %}
                         <fieldset style="border: none;">
-                            <legend>Please fill in all the required fields.</legend>
+                            <legend>Please log in, or <a href="/signup/">sign up</a>.</legend>
                             {% if form.errors %}
                                 <div class="alert alert-dismissable alert-danger">
                                     Your username and password didn't match. Please try again.

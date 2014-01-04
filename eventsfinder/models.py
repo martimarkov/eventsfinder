@@ -6,6 +6,7 @@ from django import forms
 
 from djangotoolbox.fields import ListField
 
+import os
 
 ATTENDEE_TYPE_CHOICES = (
         ('A', 'Attendee'),
@@ -65,7 +66,8 @@ class Staff(models.Model):
 
     name = models.CharField(max_length=50)
     description = models.TextField()
-    url = models.CharField(max_length=120)
+    url = models.CharField(max_length=200, null=True, blank=True)
+    imgurl = models.CharField(max_length=200, null=True, blank=True)
 
     type = models.CharField(max_length=1, choices=STAFF_TYPE_CHOICES, default='M')
     event = models.ForeignKey(Event)

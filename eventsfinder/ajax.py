@@ -48,6 +48,7 @@ def add_staff(request):
         username = request.POST['username']
         name = request.POST['name']
         url = request.POST['url']
+        imgurl = request.POST['imgurl']
 
         event = Event.objects.get(id=event_id)
         try:
@@ -61,6 +62,7 @@ def add_staff(request):
         staff.url = url
         staff.event = event
         staff.type = staff_type
+        staff.imgurl = imgurl
 
         staff.save()
 

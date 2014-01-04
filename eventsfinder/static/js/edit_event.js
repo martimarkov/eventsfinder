@@ -1,5 +1,13 @@
 var edit_event = {
     init : function() {
+
+        // Check if browser supports image upload
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
+            // Great success! All the File APIs are supported.
+        } else {
+            alert('The File APIs are not fully supported in this browser.');
+        }
+
         var event_info = $("#edit-event-info");
 
         $('.input-name').focus(function() {
@@ -12,13 +20,14 @@ var edit_event = {
             var username = that.parent().find(".input-username").attr("value");
             var name = that.parent().find(".input-name").attr("value");
             var url = that.parent().find(".input-url").attr("value");
+            var imgurl = that.parent().find(".input-imgurl").attr("value");
 
             if(!name) {
                 that.parent().find(".input-name").css("border","solid red");
                 return false;
             }
 
-            console.log(event_info.attr("data-add_staff_url"));
+            console.log(imgurl);
 
             $.ajax({
                 url: event_info.attr("data-add_staff_url"),
@@ -29,11 +38,13 @@ var edit_event = {
                     staff_type: staff_type,
                     username: username,
                     name: name,
-                    url: url
+                    url: url,
+                    imgurl: imgurl
                 },
                 success : function(res) {
                     if (!res.error) {
-                        var staff_html = '<div data-staff_id="'+res.staff_id+'" class="col-md-3 well staff-container"><h4>'+name+'</h4>' + (url ? '<a href="'+url+'">url</a>':'')+(username ? '<br><a href="/accounts/'+username+'/">Profile</a>' : '') + '<a class="remove-staff-btn" href="#">x</a></div>';
+                        //imgurl ? imgurl : '/static/images/man-placeholder.jpg'
+                        var staff_html = '<div data-staff_id="'+res.staff_id+'" class="col-md-3 well staff-container"><div style="margin: auto auto; margin-top: 10px; width:50px; height: 50px; overflow: hidden; border-radius: 10px; background-size: cover; background-image: url(' + (imgurl ? imgurl : '/static/images/man-placeholder.jpg') + ')"/><h4>'+name+'</h4>' + (url ? '<a href="'+url+'">url</a>':'')+(username ? '<br><a href="/accounts/'+username+'/">Profile</a>' : '') + '<a class="remove-staff-btn" href="#">x</a></div>';
                         that.closest(".row").append(staff_html);
                     }
                 }
