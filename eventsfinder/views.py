@@ -34,13 +34,8 @@ def add_event(request):
 
 @login_required(login_url='/login/')
 def find_events(request):
+
     events = None
-
-    all_tags_set = set()
-    for event in Event.objects.all():
-        all_tags_set |= set(tuple(event.tags))
-
-    all_tags = list(all_tags_set)
 
     if request.method == 'POST':
         tags = list(request.POST.get("tags", "").split(','))
@@ -52,7 +47,7 @@ def find_events(request):
             except Exception:
                 pass
 
-    return render(request, 'find_events.html', { 'events' : events, 'all_tags' : all_tags })
+    return render(request, 'find_events.html', { 'events' : events })
 
 @login_required(login_url='/login/')
 def manage_events(request):

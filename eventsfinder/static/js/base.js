@@ -22,6 +22,22 @@ var base_events = {
             // these HTTP methods do not require CSRF protection
             return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
         }
+
+        $('#nav-find-event-search').tagit({ tagSource: window.availableTags, select: true, sortable: true});
+        $('#nav-find-event-search-btn').click(function(event) {
+            var tags = getTags($('#nav-find-event-search').tagit('tags'));
+            $("#nav-find-event-tags").attr("value", tags);
+        });
+
+        function getTags(tags) {
+            var string = tags[0].value;
+            for (var i in tags) {
+                if (i == 0) continue;
+                string += "," + tags[i].value;
+            }
+            return string.toLowerCase()
+        }
+
         $.ajaxSetup({
             crossDomain: false, // obviates need for sameOrigin test
             beforeSend: function(xhr, settings) {

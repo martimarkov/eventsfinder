@@ -1,14 +1,7 @@
 {% extends "base.html" %}
 
 {% block head-includes %}
-    <script type='text/javascript'>
-        window.availableTags = [{% for tag in all_tags %}{% if forloop.first %}'{{ tag }}'{% else %},'{{ tag }}'{% endif %}{% endfor %}];
-    </script>
-    <script type="text/javascript" src="/static/js/external/tagit-themeroller.js"></script>
-    <script type="text/javascript" src="/static/js/external/jquery.themeswitcher.js"></script>
     <script type="text/javascript" src="/static/js/find_events.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/css/external/tagit.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/external/Bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/static/css/find_events.css">
 {% endblock %}
 
@@ -21,7 +14,7 @@
             <div class="col-md-offset-1 col-md-3">
                 <h3>Available Tags</h3>
                 <div>
-                    {% for tag in all_tags %}{% if forloop.first %}<tag class="available-tag-label">{{ tag }}</tag>{% else %}, <tag class="available-tag-label">{{ tag }}</tag>{% endif %}{% endfor %}
+                    {% for tag in tags %}{% if forloop.first %}<tag class="available-tag-label">{{ tag }}</tag>{% else %}, <tag class="available-tag-label">{{ tag }}</tag>{% endif %}{% endfor %}
                 </div>
             </div>
             <div class="col-md-5 container">

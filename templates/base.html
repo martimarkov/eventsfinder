@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <title>Events Finder</title>
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script type="text/javascript" src="/static/js/external/tagit-themeroller.js"></script>
+    <script type="text/javascript" src="/static/js/external/jquery.themeswitcher.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/external/Bootstrap.css">
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootswatch/3.0.0/amelia/bootstrap.min.css">
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css">
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
-    <script src="http://www.bootstrapcdn.com/twitter-bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/external/tagit.css">
 
 {#    <link rel="stylesheet" href="/static/css/external/amelia.bootstrap.min.css">#}
 {#    <link rel="stylesheet" href="/static/css/external/bootstrap-glyphicons.css">#}
@@ -16,6 +20,12 @@
 {#    <script type="text/javascript" src="/static/js/external/jquery.min.js"></script>#}
 {#    <script type="text/javascript" src="/static/js/external/jquery-ui.js"></script>#}
 {#    <script src="/static/js/external/bootstrap.min.js"></script>#}
+
+    {% load ef_tags %}
+    {% all_tags as tags %}
+    <script type='text/javascript'>
+        window.availableTags = [{% for tag in tags %}{% if forloop.first %}'{{ tag }}'{% else %},'{{ tag }}'{% endif %}{% endfor %}];
+    </script>
 
     <link rel="stylesheet" type="text/css" href="/static/css/base.css">
     <script type="text/javascript" src="/static/js/base.js"></script>
@@ -42,18 +52,27 @@
                 <li><a class="brand" href="#"><i style="font-size: 1.5em !important;" class="icon-facebook"></i></a></li>
                 <li><a href="#"><i style="font-size: 1.5em !important;" class="icon-twitter"></i></a></li>
             </ul>
-            <form id="nav-bar-search-form" class="navbar-form navbar-right" role="search">
-                <div class="form-group">
-                    <input id="nav-bar-search" type="text" class="form-control" placeholder="Search">
+            <form id="nav-search-form" class="navbar-form navbar-right col-md-3" method="POST" action="/find/" role="search">
+                {% csrf_token %}
+                <input id="nav-find-event-tags" class="form-control hidden" type="text" name="tags">
+                <div id="nav-find-events-bar" class="col-md-10">
+                    <ul id="nav-find-event-search" style="border-radius: 5px; padding: 5px 10px 5px 10px;" data-name="nameOfSelect"></ul>
                 </div>
-                <button type="submit" class="btn btn-default">Find</button>
-                {% if request.user.is_authenticated %}<a style="color: white" href="/logout">Log Out</a> {% endif %}
+                <button id="nav-find-event-search-btn" type="submit" class="btn btn-default col-md-2">Find</button>
             </form>
+            <!--<form id="nav-bar-search-form" class="navbar-form navbar-right" role="search">-->
+                <!--<div class="form-group">-->
+                    <!--<input id="nav-bar-search" type="text" class="form-control" placeholder="Search">-->
+                <!--</div>-->
+                <!--<button type="submit" class="btn btn-default">Find</button>-->
+                <!--{% if request.user.is_authenticated %}<a style="color: white" href="/logout">Log Out</a> {% endif %}-->
+            <!--</form>-->
             <ul class="nav navbar-nav navbar-right">
                 {% if request.user.is_authenticated %}
                     <li><a href="/find">Find</a></li>
                     <li><a href="/create">Create</a></li>
                     <li><a href="/manage">Manage</a></li>
+                    <li>{% if request.user.is_authenticated %}<a style="color: white" href="/logout">Log Out</a> {% endif %}</li>
                 {% else %}
                     <li><a href="/login">Log In</a></li>
                     <li><a href="/signup">Sign Up</a></li>
