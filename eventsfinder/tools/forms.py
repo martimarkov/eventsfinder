@@ -29,8 +29,7 @@ class EFUserCreationForm(forms.ModelForm):
         help_text=_("Required. 30 characters or fewer. Letters, digits and "
                     "@/./+/-/_ only."),
         error_messages={
-            'invalid': _("This value may contain only letters, numbers and "
-                         "@/./+/-/_ characters.")})
+            'invalid': _("The email must be a valid address.")})
 
     first_name = forms.RegexField(label=_("First Name"), max_length=30,
                     regex=r'^[a-zA-Z]+$',
