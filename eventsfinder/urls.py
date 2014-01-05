@@ -27,9 +27,15 @@ urlpatterns = patterns('',
     url(r'^add_staff/$', ajax.add_staff, name='add_staff'),
     url(r'^remove_staff/$', ajax.remove_staff, name='remove_staff'),
 
+    # Account authentication
     (r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
     (r'^logout/$', 'django.contrib.auth.views.logout', {'next_page' : '/'}),
-    (r'^signup/$', views.signup),
+    url(r'^signup/$', views.signup),
+
+    # Account management
+    url(r'^accounts/edit/password/$', views.edit_password, name='edit_password'),
+    url(r'^accounts/edit/$', views.edit_account, name='edit_account'),
+    url(r'^accounts/view/(?P<username>.+)/$', views.view_account, name='view_account'),
 
 
     ('^admin/', include(admin.site.urls)),

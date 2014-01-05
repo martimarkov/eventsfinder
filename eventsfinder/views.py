@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from eventsfinder.models import Event, Attendee, Staff
 import settings
 
-from eventsfinder.tools.forms import EventCreationForm
+from eventsfinder.tools.forms import EventCreationForm, EFUserCreationForm, EFUserEditForm, EFPasswordChangeForm
 
 def home(request):
     return render(request, 'home.html')
@@ -128,7 +128,7 @@ def signup(request):
     form = request.POST.get("form", "")
 
     if request.method =='POST':
-        form = UserCreationForm(request.POST)
+        form = EFUserCreationForm(request.POST)
 
     if form:
         if form.is_valid():
@@ -140,10 +140,55 @@ def signup(request):
             login(request, user)
             return redirect('home') # Redirect after POST
     else:
-        form = UserCreationForm() # An unbound form
+        form = EFUserCreationForm() # An unbound form
 
     return render_to_response('signup.html', { 'form': form, }, context_instance=RequestContext(request))
 
+def view_account(request, username):
+
+    user = User.objects.get(username=username)
+
+    created = Event.objects.filter(creator=user)
+    attendee_all = Attendee.objects.filter(attendee=user)
+    attending = []
+    for a in attendee_all:
+        attending.append(a.event)
+
+    return render_to_response('account_view.html', { 'created': created, 'attending': attending, 'otheruser' : user }, context_instance=RequestContext(request))
+
+@login_required(login_url='/login/')
+def edit_account(request):
+
+    if request.method == "POST":
+        form = EFUserEditForm(data=request.POST, user=request.user)
+        if form.is_valid():
+            user = form.save()
+
+            # We use this to set the user as authenticated, as we have just created the user
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
+
+            login(request, user)
+    else:
+        form = EFUserEditForm(user=request.user)
+
+    return render_to_response('account_edit.html', { 'form': form, }, context_instance=RequestContext(request))
+
+@login_required(login_url='/login/')
+def edit_password(request):
+
+    if request.method == "POST":
+        form = EFPasswordChangeForm(data=request.POST, user=request.user)
+        if form.is_valid():
+            user = form.save()
+
+            # We use this to set the user as authenticated, as we have just created the user
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
+
+            login(request, user)
+    else:
+        form = EFPasswordChangeForm(user=request.user)
+
+    return render_to_response('account_edit_password.html', { 'form': form, }, context_instance=RequestContext(request))
 
 def handler404(request):
     return render(request, 'generic_message.html', { 'header' : '404 not found...', 'message': "Oops, we couldn't find what you were looking for..." })
