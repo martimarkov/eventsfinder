@@ -19,3 +19,9 @@
     top: 0px;
     right: 5px;
 }
+
+#map-frame {
+    color: black;
+    width: 100%;
+    height:250px
+}

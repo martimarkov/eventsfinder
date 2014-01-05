@@ -27,7 +27,9 @@
                 <div class="row well">
                     {{ event.description }}
                 </div>
-                <div id="map_canvas" style="color: black; width: 100%;height:250px"></div>
+                <div id="map-frame">
+                    <div id="map" style=""></div>
+                </div>
                 <div id="all-attendees-container">
                     {% if attendees %}
                         <div class="row">
@@ -113,11 +115,11 @@
     </div>
 
     <script type='text/javascript'>
-        $('#map_canvas').gmap().bind('init', function(ev, map) {
-            $('#map_canvas').gmap('addMarker', {'position': '{{ event.latitude }},{{ event.longitude }}', 'bounds': true}).click(function() {
-                $('#map_canvas').gmap('openInfoWindow', {'content': '{{ event.name }}' + ' - ' + '{{ event.get_short_address }}'}, this);
+        $('#map').gmap().bind('init', function(ev, map) {
+            $('#map').gmap('addMarker', {'position': '{{ event.latitude }},{{ event.longitude }}', 'bounds': true}).click(function() {
+                $('#map').gmap('openInfoWindow', {'content': '{{ event.name }}' + ' - ' + '{{ event.get_short_address }}'}, this);
             });
-            $('#map_canvas').gmap('option', 'zoom', 15);
+            $('#map').gmap('option', 'zoom', 15);
         });
     </script>
 {% endblock %}
