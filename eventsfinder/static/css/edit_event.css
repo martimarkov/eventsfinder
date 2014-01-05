@@ -13,17 +13,9 @@
     padding: 3px 10px 3px 10px;
 }
 
-.staff-container {
-    padding: 5px 5px 5px 5px;
-    margin: 15px 5px 15px 5px;
-    text-align: center;
-    height: 180px;
-    position: relative;
-}
-
 .remove-staff-btn {
     color: red;
     position: absolute;
-    bottom: 0px;
+    top: 0px;
     right: 5px;
 }

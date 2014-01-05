@@ -44,7 +44,7 @@ var edit_event = {
                 success : function(res) {
                     if (!res.error) {
                         //imgurl ? imgurl : '/static/images/man-placeholder.jpg'
-                        var staff_html = '<div data-staff_id="'+res.staff_id+'" class="col-md-3 well staff-container"><div style="margin: auto auto; margin-top: 10px; width:50px; height: 50px; overflow: hidden; border-radius: 10px; background-size: cover; background-image: url(' + (imgurl ? imgurl : '/static/images/man-placeholder.jpg') + ')"/><h4>'+name+'</h4>' + (url ? '<a href="'+url+'">url</a>':'')+(username ? '<br><a href="/accounts/'+username+'/">Profile</a>' : '') + '<a class="remove-staff-btn" href="#">x</a></div>';
+                        var staff_html = '<div data-staff_id="'+res.staff_id+'" class="col-md-3 well staff-container"><div style="margin: auto auto; margin-top: 10px; width:100px; height: 100px; overflow: hidden; border-radius: 50px; background-size: cover; background-image: url(' + (imgurl ? imgurl : '/static/images/man-placeholder.jpg') + ')"/><h4>'+name+'</h4>' + (url ? '<a href="'+url+'">url</a>':'')+(username ? '<br><a href="/accounts/'+username+'/">Profile</a>' : '') + '<a class="remove-staff-btn" href="#">x</a></div>';
                         that.closest(".row").append(staff_html);
                     }
                 }

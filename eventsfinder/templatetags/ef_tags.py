@@ -41,3 +41,7 @@ def all_tags():
     all_tags = list(all_tags_set)
 
     return all_tags
+
+@register.assignment_tag()
+def split(value):
+    return value.split(',')
