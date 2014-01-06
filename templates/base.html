@@ -23,6 +23,8 @@
     <link rel="stylesheet" type="text/css" href="/static/css/external/tagit.css">
 
     <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/js/external/collapse.js"></script>
+    <script type="text/javascript" src="/static/js/external/transition.js"></script>
 
 {#    <link rel="stylesheet" href="/static/css/external/amelia.bootstrap.min.css">#}
 {#    <link rel="stylesheet" href="/static/css/external/bootstrap-glyphicons.css">#}
@@ -48,7 +50,7 @@
     <nav id='events-finder-nav-bar' class="navbar navbar-default navbar-fixed-top" role="navigation">
 
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -61,6 +63,19 @@
             <ul id="navbar-social" class="nav navbar-nav">
                 <li><a class="brand" href="#"><i style="font-size: 1.5em !important;" class="icon-facebook"></i></a></li>
                 <li><a href="#"><i style="font-size: 1.5em !important;" class="icon-twitter"></i></a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if request.user.is_authenticated %}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/accounts/view/{{ request.user.username }}">View Account</a></li>
+                        <li><a href="/accounts/edit">Edit Account</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/logout">Log Out</a></li>
+                    </ul>
+                </li>
+                {% endif %}
             </ul>
             <form id="nav-search-form" class="navbar-form navbar-right" method="POST" action="/find/" role="search">
                 {% csrf_token %}
@@ -75,15 +90,6 @@
                     <li><a href="/find">Find</a></li>
                     <li><a href="/create">Create</a></li>
                     <li><a href="/manage">Manage</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/accounts/view/{{ request.user.username }}">View Account</a></li>
-                            <li><a href="/accounts/edit">Edit Account</a></li>
-                            <li class="divider"></li>
-                            <li><a href="/logout">Log Out</a></li>
-                        </ul>
-                    </li>
                 {% else %}
                     <li><a href="/login">Log In</a></li>
                     <li><a href="/signup">Sign Up</a></li>

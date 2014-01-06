@@ -52,6 +52,19 @@ body {
     width: 100px;
 }
 
+#nav-find-event-search-btn {
+    position: absolute;
+    top: 0px;
+    right: -5px;
+    width: 70px;
+}
+
+#nav-search-form {
+    position: relative;
+    width: 400px;
+    margin-right: 10px;
+}
+
 #nav-find-event-search {
     width: 300px;
     height: 40px;
