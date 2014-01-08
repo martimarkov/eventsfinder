@@ -2,16 +2,37 @@ from django import forms
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.contrib.auth.models import User
 from eventsfinder.models import Event, Staff
+import datetime
 
 
 class EventCreationForm(forms.ModelForm):
     error_messages = {
-        'invalid_address': _("Please provide a valid address.")
+          'invalid_address': _("Please provide a valid address.")
+        , 'invalid_start_date': _("Start date must be later than today")
+        , 'invalid_end_date': _("End date must be later than start date")
         }
 
     class Meta:
         model = Event
         exclude = ['creator']
+
+    def clean_start(self):
+        start_date = self.cleaned_data.get("start")
+        if not start_date:
+            raise forms.ValidationError('Start Date cannot be empty')
+        today = datetime.datetime.now()
+        if start_date < today:
+            raise forms.ValidationError(self.error_messages['invalid_start_date'])
+        return start_date
+
+    def clean_end(self):
+        start_date = self.cleaned_data.get("start")
+        if not start_date:
+            raise forms.ValidationError('Please fix start date')
+        end_date = self.cleaned_data.get("end")
+        if end_date < start_date:
+            raise forms.ValidationError(self.error_messages['invalid_end_date'])
+        return end_date
 
     def save(self, commit=True):
         event = super(EventCreationForm, self).save(commit=False)

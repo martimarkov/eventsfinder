@@ -17,8 +17,6 @@ def home(request):
 @login_required(login_url='/login/')
 def add_event(request):
 
-    form = request.POST.get("form", "")
-
     if request.method =='POST':
         form = EventCreationForm(request.POST)
 
