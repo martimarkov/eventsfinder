@@ -70,10 +70,15 @@ INSTALLED_APPS = (
     'autoload',
     'dbindexer',
 
+    #'httplib2',#    These 4 are
+    #'openid',#      what u need to
+    #'oauth2',#      integrate social_auth plug
+    'social_auth',# in your GAE project
+
     # djangoappengine should come last, so it can override a few manage.py commands
     'djangoappengine',
 
-    'eventsfinder',
+    'eventsfinder'
 )
 
 # List of finder classes that know how to find static files in
@@ -99,6 +104,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.core.context_processors.media',
     "eventsfinder.ef_context.in_prod",
+    "social_auth.context_processors.social_auth_by_type_backends"
 )
 
 MIDDLEWARE_CLASSES = (
@@ -116,3 +122,31 @@ TEST_RUNNER = 'djangotoolbox.test.CapturingTestSuiteRunner'
 TEMPLATE_DIRS = (
     os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'templates'))
 )
+
+
+#
+AUTHENTICATION_BACKENDS = (
+    # 'social_auth.backends.twitter.TwitterBackend',
+    # 'social_auth.backends.facebook.FacebookBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
+SOCIAL_AUTH_UID_LENGTH = 16
+SOCIAL_AUTH_ASSOCIATION_HANDLE_LENGTH = 16
+SOCIAL_AUTH_NONCE_SERVER_URL_LENGTH = 16
+SOCIAL_AUTH_ASSOCIATION_SERVER_URL_LENGTH = 16
+SOCIAL_AUTH_ASSOCIATION_HANDLE_LENGTH = 16
+
+SOCIAL_AUTH_ENABLED_BACKENDS = ('twitter', 'facebook')
+
+
+TWITTER_CONSUMER_KEY         = ''
+TWITTER_CONSUMER_SECRET      = ''
+FACEBOOK_APP_ID              = ''
+FACEBOOK_API_SECRET          = ''
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/members/'
+LOGIN_ERROR_URL = '/login-error/'
+

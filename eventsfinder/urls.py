@@ -39,4 +39,6 @@ urlpatterns = patterns('',
 
 
     ('^admin/', include(admin.site.urls)),
+    url(r'', include('social_auth.urls')),
+
 )
