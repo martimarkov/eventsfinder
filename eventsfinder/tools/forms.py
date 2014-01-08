@@ -46,7 +46,7 @@ class EFUserCreationForm(forms.ModelForm):
         'password_mismatch': _("The two password fields didn't match."),
         }
     username = forms.RegexField(label=_("Username"), max_length=30,
-        regex=r'^[a-zA-Z]+@[a-zA-Z]+\.[a-zA-Z]+$',
+        regex=r'^[a-zA-Z.-_]+@[a-zA-Z]+\.[a-zA-Z]+$',
         help_text=_("Required. 30 characters or fewer. Letters, digits and "
                     "@/./+/-/_ only."),
         error_messages={

@@ -38,6 +38,10 @@
                         {% for event in events %}
                             {% include 'layouts/event.html' with event=event %}
                         {% endfor %}
+                    {% else %}
+                        {% if request.method == "POST" %}
+                            No matches were found with the tags given.
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>

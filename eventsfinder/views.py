@@ -97,6 +97,22 @@ def edit_event(request, event_id):
 
     return render(request, 'edit_event.html', data)
 
+def edit_event(request, event_id):
+
+    try:
+        event = Event.objects.get(id=event_id)
+
+        if event.creator != request.user:
+            return render(request, 'generic_message.html', { 'header' : 'Event not found...', 'message': "Oops, we couldn't find the event you were looking for..." })
+
+        event.delete()
+
+    except Exception, err:
+        # Event not found so raise an event not found
+        return render(request, 'generic_message.html', { 'header' : 'Event not found...', 'message': err if settings.DEBUG else "Oops, we couldn't find the event you were looking for..." })
+
+    return reverse()
+
 def view_event(request, event_id):
     data = {}
 
