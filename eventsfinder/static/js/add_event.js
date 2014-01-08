@@ -25,6 +25,7 @@ var add_event = {
         $('#add-event-form').submit(function(event) {
             var tags = getTags($('#add-event-tag-bar').tagit('tags'));
             $("#add-event-tags").attr("value", tags);
+
         });
 
         function getTags(tags) {
