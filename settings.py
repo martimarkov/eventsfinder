@@ -9,7 +9,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('Alejandro Saucedo', 'axsauze@gmail.com'),
+    ('Alejandro Saucedo', 'hackasoton@gmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -17,9 +17,12 @@ MANAGERS = ADMINS
 #Use email
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = 'wakeuproulette@gmail.com'
-EMAIL_HOST_PASSWORD = 'wakeup!!'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'hackasoton@gmail.com'
+EMAIL_HOST_PASSWORD = 'HackaS0t0n'
+
+DEFAULT_FROM_EMAIL = 'hackasoton@gmail.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 ALLOWED_HOSTS = [ '.events-finder.appspot.com/']
 

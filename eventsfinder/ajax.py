@@ -1,6 +1,7 @@
 from django.views.decorators.http import require_POST
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from google.appengine.api import mail
 
 import json
 
@@ -26,12 +27,37 @@ def attend_event(request):
 
             attendee.save()
 
+#            send_async_mail("New attendee!"
+#                            , "<a href='http://events-finder.appspot.com/accounts/view/"+request.user.username+"'>"
+#                                                + request.user.first_name + " " + request.user.last_name + "</a> is now attending your event '"
+#                                                "<a href='http://events-finder.appspot.com/event/" + event_id + "/'>"
+#                                                + event.name + "</a>."
+#                            ,"hackasoton@gmail.com"
+#                            ,[event.creator.username])
+
         else:
             attendee_instance = Attendee.objects.get(attendee=request.user, event=event)
             attendee_instance.delete()
 
     except Exception, err:
         response['error'] = err.__str__()
+
+
+#    import smtplib
+#    smtp = smtplib.SMTP()
+#    try:
+#        smtp.connect("smtp.gmail.com", 587)
+#        smtp.ehlo()
+#        smtp.starttls()
+#        smtp.ehlo()
+#        smtp.login("hackasoton@gmail.com", "HackaS0t0n")
+#
+#        tos = ["axsauze@gmail.com"]
+#        smtp.sendmail("hackasoton@gmail.com", tos, "hello")
+#    finally:
+#        smtp.quit()
+
+#    mail.send_mail("hackasoton@gmail.com", "axsauze@gmail.com", "hello", "world")
 
     return HttpResponse(json.dumps(response), content_type="application/json")
 

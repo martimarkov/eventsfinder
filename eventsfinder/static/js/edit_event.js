@@ -75,6 +75,11 @@ var edit_event = {
             });
         });
 
+        $('#end-datetime, #start-datetime').datetimepicker({
+            format: 'dd/MM/yyyy hh:mm:ss',
+            language: 'en-GB'
+        });
+
         $('#add-event-tag-bar').tagit({ select:true, sortable: true });
 
         $('#add-event-form').submit(function(event) {

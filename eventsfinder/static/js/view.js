@@ -6,6 +6,8 @@ var view_event = {
             var that = $(this);
             var attendee_type = that.attr("data-attendee_type");
             var username = event_info.attr("data-user_username");
+            var firstname = event_info.attr("data-user_firstname");
+            var lastname = event_info.attr("data-user_lastname");
 
             console.log(attendee_type);
 
@@ -39,7 +41,7 @@ var view_event = {
                                 var container = attendee_type == 'A' ? $('#event-attendees-container') : $('#event-trackers-container');
                             }
 
-                            var new_attendee = '<div class="col-md-2 well"><a href="/accounts/'+username+'/">'+username+'</a></div>';
+                            var new_attendee = '<div class="col-md-2 well"><a href="/accounts/'+username+'/">'+firstname + ' ' + lastname+'</a></div>';
                             console.log(container);
                             console.log(new_attendee);
                             container.prepend(new_attendee);
