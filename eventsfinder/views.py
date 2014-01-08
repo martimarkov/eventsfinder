@@ -97,7 +97,7 @@ def edit_event(request, event_id):
 
     return render(request, 'edit_event.html', data)
 
-def edit_event(request, event_id):
+def delete_event(request, event_id):
 
     try:
         event = Event.objects.get(id=event_id)
