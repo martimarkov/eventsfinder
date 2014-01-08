@@ -29,15 +29,22 @@
 
                         <div class="form-group">
                             <label for="add-event-form-last-name" class="col-md-3 control-label">Last Name</label>
-                            <div class="col-md-9" style="padding-bottom: 20px;">
+                            <div class="col-md-9">
                                 <input id="add-event-form-last-name" name="last_name" class="form-control" type="text" placeholder="Last Name" value="{{ request.user.last_name }}">
                             </div>
                         </div>
 
+						 <div class="form-group">
+                            <label for="add-event-form-email" class="col-md-3 control-label">Email</label>
+                            <div class="col-md-9" style="padding-bottom: 20px;">
+                                <input name="username" class="form-control"  value="{{ request.user.username }}" disabled>
+                            </div>
+                        </div>
+                        
                         <div class="form-group">
                             <div class="col-lg-10 col-lg-offset-2">
                                 <button class="btn btn-primary" type="submit" value="login" style="float: left;">Update</button>
-                                <a class="btn btn-danger" type="submit" value="login" href="/accounts/edit/password/" style="color: white; float: right;">ChangePassword</a>
+                                <a class="btn btn-danger" type="submit" value="login" href="/accounts/edit/password/" style="color: white; float: right;">Change Password</a>
                             </div>
                         </div>
                     </fieldset>
